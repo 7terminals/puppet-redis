@@ -1,0 +1,3 @@
+# puppet-redis #
+
+This is the puppet-redis module. It provides...
