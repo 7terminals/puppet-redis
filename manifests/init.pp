@@ -129,7 +129,7 @@ class redis (
       owner   => 'root',
       group   => 'root',
       content => template("${module_name}/redis.conf.erb"),
-      require => Exec["install_redis=${name}"]
+      require => Exec["install_redis-${name}"]
     }
   }
 }
