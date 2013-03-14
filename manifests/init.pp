@@ -85,6 +85,10 @@ class redis (
       mode   => '644'
     }
 
+    if $caller_module_name == undef {
+      $caller_module_name = 'redis'
+    }
+
     file { "${cachedir}/${source}":
       source  => "puppet:///modules/${caller_module_name}/${source}",
       require => File[$cachedir],

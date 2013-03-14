@@ -13,7 +13,7 @@
     "README.md": "1e3f06c2044136b64335f05647971329",
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files\\redis-2.6.11.tar.gz": "99d4d79ca7021899001b9c737097bf88",
-    "manifests\\init.pp": "e98494fc1b1f00ae877466e8f2891d29",
+    "manifests\\init.pp": "7c43ebdbcdc1e23fbb56c2757b9a32ec",
     "spec\\spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec\\spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
     "templates\\redis.conf.erb": "8b6dad92a16989283e43514d8258cdf2",
