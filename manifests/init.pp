@@ -106,7 +106,7 @@ class redis (
       cwd     => "${cachedir}/extracted/redis-${version}",
       command => 'make',
       timeout => 0,
-      creates => "${cachedir}/extracted/redis-${version}/scr/redis-server",
+      creates => "${cachedir}/extracted/redis-${version}/src/redis-server",
       require => Exec["extract_redis-${name}"],
     }
 
@@ -117,10 +117,10 @@ class redis (
       require => Exec["compile_redis-${name}"],
     }
 
-    exec { "install_redis=${name}":
+    exec { "install_redis-${name}":
       cwd     => "${cachedir}/extracted/redis-${version}",
       command => "make PREFIX=${deploymentdir} install",
-      creates => "${deploymentdir}/redis-server",
+      creates => "${deploymentdir}/bin/redis-server",
       require => Exec["create_deployment_dir-${name}"],
     }
 
