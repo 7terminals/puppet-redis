@@ -12,7 +12,7 @@
 #
 class redis (
   $ensure             = 'present',
-  $source             = "puppet://modules/${module_name}/redis-2.6.11.tar.gz",
+  $source             = 'redis-2.6.11.tar.gz',
   $deploymentdir      = '/usr/local/bin',
   $config_file_path   = '/etc/redis.conf',
   $daemonize          = 'yes',
