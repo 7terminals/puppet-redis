@@ -1,1 +1,4 @@
-class { 'redis': ensure => present, }
+class { 'redis':
+  ensure        => present,
+  deploymentdir => '/opt/redis',
+}
