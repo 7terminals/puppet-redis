@@ -102,7 +102,7 @@ class redis (
     }
 
     exec { "compile_redis-${name}":
-      cwd     => "${cachedir}/extracted/redis*",
+      cwd     => "${cachedir}/extracted/redis-2.6.11",
       command => 'make',
       timeout => 0,
       creates => "${cachedir}/extracted/scr/redis-server",
@@ -117,7 +117,7 @@ class redis (
     }
 
     exec { "install_redis=${name}":
-      cwd     => "${cachedir}/extracted",
+      cwd     => "${cachedir}/extracted/redis-2.6.11",
       command => "make PREFIX=${deploymentdir} install",
       creates => "${deploymentdir}/redis-server",
       require => Exec["create_deployment_dir-${name}"],
