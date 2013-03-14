@@ -13,6 +13,7 @@
 class redis (
   $ensure             = 'present',
   $source             = 'redis-2.6.11.tar.gz',
+  $version            = '2.6.11',
   $deploymentdir      = '/usr/local/bin',
   $config_file_path   = '/etc/redis.conf',
   $daemonize          = 'yes',
@@ -102,10 +103,10 @@ class redis (
     }
 
     exec { "compile_redis-${name}":
-      cwd     => "${cachedir}/extracted/redis-2.6.11",
+      cwd     => "${cachedir}/extracted/redis-${version}",
       command => 'make',
       timeout => 0,
-      creates => "${cachedir}/extracted/scr/redis-server",
+      creates => "${cachedir}/extracted/redis-${version}/scr/redis-server",
       require => Exec["extract_redis-${name}"],
     }
 
@@ -117,7 +118,7 @@ class redis (
     }
 
     exec { "install_redis=${name}":
-      cwd     => "${cachedir}/extracted/redis-2.6.11",
+      cwd     => "${cachedir}/extracted/redis-${version}",
       command => "make PREFIX=${deploymentdir} install",
       creates => "${deploymentdir}/redis-server",
       require => Exec["create_deployment_dir-${name}"],
