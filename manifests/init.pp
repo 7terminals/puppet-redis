@@ -12,12 +12,13 @@
 #
 class redis (
   $ensure            = 'present',
-  $source            = '',
-  $deploymentdir     = '',
+  $source            = "puppet://modules/${module_name}/redis-2.6.11.tar.gz",
+  $deploymentdir     = '/usr/local/bin',
+  $config_file_path  = '/etc/redis.conf',
   $daemonize         = 'yes',
   $pidfile           = '/var/run/redis.pid',
   $port              = '6379',
-  $bind              = '127.0.0.1',
+  $bind              = $::ipaddress,
   $timeout           = '0',
   $tcp_keepalive     = '0',
   $loglevel          = 'notice',
@@ -63,54 +64,66 @@ class redis (
   $client_output_buffer_limit  = 'normal 0 0 0',
   $hz                = '10',
   $cachedir          = "/var/run/puppet/redis_setup_working-${name}") {
-  # Resource defaults for Exec
-  Exec {
-    path => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'], }
-
-  # Packages required to build Redis
-  package { ['gcc', 'make', 'wget']: ensure => installed, }
-
-  # Working dir to build Redis
-  file { $cachedir:
-    ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
-    mode   => '644'
+  # Quick input validation
+  if !($ensure in ['absent', 'present']) {
+    fail('ensure parameter must be absent or present')
   }
 
-  file { "${cachedir}/${source}":
-    source  => "puppet:///modules/${caller_module_name}/${source}",
-    require => File[$cachedir],
-  }
+  if $ensure == 'present' {
+    # Resource defaults for Exec
+    Exec {
+      path => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'], }
 
-  exec { "extract_redis-${name}":
-    cwd     => $cachedir,
-    command => "mkdir extracted; tar -C extracted -xzf ${source} && touch .redis_extracted",
-    creates => "${cachedir}/.redis_extracted",
-    require => File["${cachedir}/${source}"],
-  }
+    # Packages required to build Redis
+    package { ['gcc', 'make', 'wget']: ensure => installed, }
 
-  exec { "compile_redis-${name}":
-    cwd     => "${cachedir}/extracted",
-    command => 'make',
-  }
+    # Working dir to build Redis
+    file { $cachedir:
+      ensure => 'directory',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '644'
+    }
 
-  exec { "install_redis=${name}":
-    cwd     => "${cachedir}/extracted",
-    command => "make PREFIX=${deploymentdir} install",
-  }
+    file { "${cachedir}/${source}":
+      source  => "puppet:///modules/${caller_module_name}/${source}",
+      require => File[$cachedir],
+    }
 
-  exec { "create_target_redis-${name}":
-    cwd     => '/',
-    command => "mkdir -p ${deploymentdir}",
-    creates => $deploymentdir,
-    require => Exec["extract_redis-${name}"],
-  }
+    exec { "extract_redis-${name}":
+      cwd     => $cachedir,
+      command => "mkdir extracted; tar -C extracted -xzf ${source} && touch .redis_extracted",
+      creates => "${cachedir}/.redis_extracted",
+      require => File["${cachedir}/${source}"],
+    }
 
-  exec { "move_redis-${name}":
-    cwd     => $cachedir,
-    command => "cp -r extracted/apache-ant*/* ${deploymentdir} && chown -R ${user}:${user} ${deploymentdir}",
-    creates => "${deploymentdir}/bin/ant",
-    require => Exec["create_target_redis-${name}"],
+    exec { "compile_redis-${name}":
+      cwd     => "${cachedir}/extracted",
+      command => 'make',
+      creates => "${cachedir}/extracted/scr/redis-server",
+      require => Exec["extract_redis-${name}"],
+    }
+
+    exec { "create_deployment_dir-${name}":
+      cwd     => '/',
+      command => "mkdir -p ${deploymentdir}",
+      creates => $deploymentdir,
+      require => Exec["compile_redis-${name}"],
+    }
+
+    exec { "install_redis=${name}":
+      cwd     => "${cachedir}/extracted",
+      command => "make PREFIX=${deploymentdir} install",
+      creates => "${deploymentdir}/redis-server",
+      require => Exec["create_deployment_dir-${name}"],
+    }
+
+    file { $config_file_path:
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      content => template("${module_name}/redis.conf.erb"),
+      require => Exec["install_redis=${name}"]
+    }
   }
 }
