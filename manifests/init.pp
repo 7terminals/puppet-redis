@@ -102,8 +102,9 @@ class redis (
     }
 
     exec { "compile_redis-${name}":
-      cwd     => "${cachedir}/extracted",
+      cwd     => "${cachedir}/extracted/redis*",
       command => 'make',
+      timeout => 0,
       creates => "${cachedir}/extracted/scr/redis-server",
       require => Exec["extract_redis-${name}"],
     }
