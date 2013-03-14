@@ -1,1 +1,1 @@
-include redis
+class { 'redis': ensure => present, }
