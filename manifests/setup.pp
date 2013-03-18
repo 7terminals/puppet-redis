@@ -76,7 +76,7 @@ define redis::setup (
       path => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'], }
 
     # Packages required to build Redis
-    package { ['gcc', 'make', 'wget']: ensure => installed, }
+    package { ['gcc', 'make']: ensure => installed, }
 
     # Working dir to build Redis
     file { $cachedir:
