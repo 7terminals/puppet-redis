@@ -22,7 +22,7 @@ define redis::setup (
   $bind               = $::ipaddress,
   $connection_timeout = '0',
   $tcp_keepalive      = '0',
-  $loglevel           = 'notice',
+  $log_level          = 'notice',
   $logfile            = 'stdout',
   $syslog_enabled     = 'no',
   $syslog_ident       = 'redis',
