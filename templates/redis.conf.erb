@@ -160,7 +160,7 @@ dir <%= dir %>
 # so for example it is possible to configure the slave to save the DB with a
 # different interval, or to listen to another port, and so on.
 #
-# slaveof
+# slaveof <masterip> <masterport>
 <% if @slaveof %>
 slaveof <%= slaveof %>
 <% end %>
@@ -171,7 +171,7 @@ slaveof <%= slaveof %>
 # starting the replication synchronization process, otherwise the master will
 # refuse the slave request.
 #
-# masterauth
+# masterauth <master-password>
 <% if @masterauth %>
 masterauth <%= masterauth %>
 <% end %>
