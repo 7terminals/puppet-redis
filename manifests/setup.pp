@@ -15,10 +15,10 @@ define redis::setup (
   $source             = 'redis-2.6.11.tar.gz',
   $version            = '2.6.11',
   $deploymentdir      = '/usr/local/bin',
-  $config_file_path   = '/etc/redis.conf',
-  $daemonize          = 'yes',
-  $pidfile            = '/var/run/redis.pid',
   $port               = '6379',
+  $config_file_path   = "/etc/${name}.conf",
+  $daemonize          = 'yes',
+  $pidfile            = '/var/run/${$name}.pid',
   $bind               = $::ipaddress,
   $connection_timeout = '0',
   $tcp_keepalive      = '0',
@@ -130,6 +130,14 @@ define redis::setup (
       group   => 'root',
       content => template("${module_name}/redis.conf.erb"),
       require => Exec["install_redis-${name}"]
+    }
+
+    file { "/etc/init.d/${name}":
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      content => template("${module_name}/redis_init_script.erb"),
+      require => File[$config_file_path],
     }
   }
 }
