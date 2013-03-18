@@ -41,7 +41,7 @@ define redis::setup (
   $repl_timeout       = '60',
   $repl_disable_tcp_nodelay    = 'no',
   $slave_priority     = '100',
-  $requirepass        = 'foobared',
+  $requirepass        = undef,
   $maxclients         = '10000',
   $maxmemory          = '<bytes>',
   $maxmemory_policy   = 'volatile-lru',
