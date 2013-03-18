@@ -18,7 +18,7 @@
     "spec\\spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec\\spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
     "templates\\redis.conf.erb": "0c13a99083b7292ce4826247fb29015f",
-    "tests\\init.pp": "de4b7d720901787b19531735d8378a13"
+    "tests\\init.pp": "87c0a43439e29670b771d0e44013bdfa"
   },
   "dependencies": []
 }
