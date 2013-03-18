@@ -14,10 +14,10 @@
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files\\redis-2.6.11.tar.gz": "99d4d79ca7021899001b9c737097bf88",
     "manifests\\init.pp": "bb9d9b51c5f35b2b87005624babed29d",
-    "manifests\\setup.pp": "685939fc2d3aceb3f27ba8cafb4d1632",
+    "manifests\\setup.pp": "2b76359c3abff01b252d227fde8df33e",
     "spec\\spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec\\spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
-    "templates\\redis.conf.erb": "6af0d6c7cd916b108a85e18843f5bb89",
+    "templates\\redis.conf.erb": "e986e250665768ce9555ff3960626391",
     "templates\\redis_init_script.erb": "f3028347c45b84284d9e354e755eac05",
     "tests\\init.pp": "87c0a43439e29670b771d0e44013bdfa"
   },

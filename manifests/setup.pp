@@ -44,7 +44,7 @@ define redis::setup (
   $requirepass        = 'foobared',
   $maxclients         = '10000',
   $maxmemory          = '<bytes>',
-  $maxmemory_policy   = 'volatile_lru',
+  $maxmemory_policy   = 'volatile-lru',
   $maxmemory_samples  = '3',
   $appendonly         = 'no',
   $appendfsync        = 'everysec',
