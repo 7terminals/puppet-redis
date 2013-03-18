@@ -160,15 +160,21 @@ dir <%= dir %>
 # so for example it is possible to configure the slave to save the DB with a
 # different interval, or to listen to another port, and so on.
 #
+# slaveof
+<% if @slaveof %>
 slaveof <%= slaveof %>
+<% end %>
+
 
 # If the master is password protected (using the "requirepass" configuration
 # directive below) it is possible to tell the slave to authenticate before
 # starting the replication synchronization process, otherwise the master will
 # refuse the slave request.
 #
+# masterauth
+<% if @masterauth %>
 masterauth <%= masterauth %>
-
+<% end %>
 # When a slave loses its connection with the master, or when the replication
 # is still in progress, the slave can act in two different ways:
 #
