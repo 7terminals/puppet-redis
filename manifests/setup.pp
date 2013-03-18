@@ -136,7 +136,7 @@ define redis::setup (
       ensure  => present,
       owner   => 'root',
       group   => 'root',
-      mode    => 655,
+      mode    => 755,
       content => template("${module_name}/redis_init_script.erb"),
       require => File[$config_file_path],
     }
