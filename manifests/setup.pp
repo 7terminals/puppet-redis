@@ -18,7 +18,7 @@ define redis::setup (
   $port               = '6379',
   $config_file_path   = "/etc/${name}.conf",
   $daemonize          = 'yes',
-  $pidfile            = '/var/run/${$name}.pid',
+  $pidfile            = '/var/run/${name}.pid',
   $bind               = $::ipaddress,
   $connection_timeout = '0',
   $tcp_keepalive      = '0',
