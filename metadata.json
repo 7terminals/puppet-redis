@@ -14,7 +14,7 @@
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files\\redis-2.6.11.tar.gz": "99d4d79ca7021899001b9c737097bf88",
     "manifests\\init.pp": "bb9d9b51c5f35b2b87005624babed29d",
-    "manifests\\setup.pp": "fbf4683ecc54c225b90aac167be30caf",
+    "manifests\\setup.pp": "d2a314faff6b4cd4139a1c3f769b59bd",
     "spec\\spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec\\spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
     "templates\\redis.conf.erb": "e986e250665768ce9555ff3960626391",
