@@ -136,8 +136,15 @@ define redis::setup (
       ensure  => present,
       owner   => 'root',
       group   => 'root',
+      mode    => 655,
       content => template("${module_name}/redis_init_script.erb"),
       require => File[$config_file_path],
+    }
+
+    service { "/etc/init.d/${name}":
+      ensure  => running,
+      enable  => true,
+      require => File["/etc/init.d/${name}"],
     }
   }
 }
