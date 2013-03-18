@@ -13,11 +13,12 @@
     "README.md": "1e3f06c2044136b64335f05647971329",
     "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
     "files\\redis-2.6.11.tar.gz": "99d4d79ca7021899001b9c737097bf88",
-    "manifests\\init.pp": "6cb45d129847f06a824fa4fc5b478704",
+    "manifests\\init.pp": "bb9d9b51c5f35b2b87005624babed29d",
+    "manifests\\setup.pp": "d38b45fcc6cb9af1258e4e1f87e77dec",
     "spec\\spec.opts": "a600ded995d948e393fbe2320ba8e51c",
     "spec\\spec_helper.rb": "3ea886dd135e120afa31e0aab12e85b0",
     "templates\\redis.conf.erb": "3539456237f5e0c7b4efc4cd6a59a731",
-    "tests\\init.pp": "f3629293d26f683d1240cf9b559ac2e6"
+    "tests\\init.pp": "de4b7d720901787b19531735d8378a13"
   },
   "dependencies": []
 }
