@@ -1,18 +1,16 @@
 #!/bin/sh
-#
-# HEADER: This file is deployed from Puppet module redis
-# HEADER: Manual changes to this file will be overwritten 
-# 
 # chkconfig: 345 85 60
 # description: Redis server - start, stop 
-
-
 ### BEGIN INIT INFO
 # Required-Start: $local_fs $network $syslog
 # Default-Start: 3 4 5
 # Default-Stop: 0 1 2 6
 # Short-Description: Redis server
 ### END INIT INFO
+#
+# HEADER: This file is deployed from Puppet module redis
+# HEADER: Manual changes to this file will be overwritten 
+# 
 
 REDISHOST=<%= bind %>
 REDISPORT=<%= port %>
