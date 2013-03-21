@@ -15,6 +15,7 @@ define redis::setup (
   $source             = 'redis-2.6.11.tar.gz',
   $version            = '2.6.11',
   $deploymentdir      = '/usr/local/bin',
+  $build_packages     = true,
   $port               = '6379',
   $config_file_path   = "/etc/${name}.conf",
   $daemonize          = 'yes',
@@ -75,8 +76,10 @@ define redis::setup (
     Exec {
       path => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'], }
 
-    # Packages required to build Redis
-    package { ['gcc', 'make']: ensure => installed, }
+    if $build_packages == true {
+      # Packages required to build Redis
+      package { ['gcc', 'make', 'jemalloc-devel']: ensure => installed, }
+    }
 
     # Working dir to build Redis
     file { $cachedir:
