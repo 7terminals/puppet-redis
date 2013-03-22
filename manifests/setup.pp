@@ -140,7 +140,7 @@ define redis::setup (
       require => File[$config_file_path],
     }
 
-    service { "/etc/init.d/${name}":
+    service { $name:
       ensure  => running,
       enable  => true,
       require => File["/etc/init.d/${name}"],
