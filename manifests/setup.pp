@@ -66,19 +66,33 @@ define redis::setup (
   $client_output_buffer_limit  = 'normal 0 0 0',
   $hz                 = '10',
   $cachedir           = "/var/run/puppet/redis_setup_working-${name}") {
+  # we support only Debian and RedHat
+  case $::osfamily {
+    Debian  : { $supported = true }
+    RedHat  : { $supported = true }
+    default : { fail("The ${module_name} module is not supported on ${::osfamily} based systems") }
+  }
+
   # Quick input validation
   if !($ensure in ['absent', 'present']) {
     fail('ensure parameter must be absent or present')
   }
 
+  if ($caller_module_name == undef) {
+    $caller_module_name = $module_name
+  }
+
   if $ensure == 'present' {
     # Resource defaults for Exec
     Exec {
-      path => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'], }
+      path => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'],
+    }
 
     if $build_packages == true {
       # Packages required to build Redis
-      package { ['gcc', 'make', 'jemalloc-devel']: ensure => installed, }
+      package { ['gcc', 'make', 'jemalloc-devel']:
+        ensure => installed,
+      }
     }
 
     # Working dir to build Redis
@@ -144,6 +158,18 @@ define redis::setup (
       ensure  => running,
       enable  => true,
       require => File["/etc/init.d/${name}"],
+    }
+  } else {
+    file { $deploymentdir:
+      ensure  => 'absent',
+      recurse => true,
+      force   => true,
+    }
+
+    file { $cachedir:
+      ensure  => 'absent',
+      recurse => true,
+      force   => true,
     }
   }
 }
