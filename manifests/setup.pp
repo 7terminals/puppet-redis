@@ -14,8 +14,7 @@ define redis::setup (
   $ensure             = 'present',
   $source             = 'redis-2.6.11.tar.gz',
   $version            = '2.6.11',
-  $deploymentdir      = '/usr/local/bin',
-  $build_packages     = true,
+  $deploymentdir      = '/usr/local/redis',
   $port               = '6379',
   $config_file_path   = "/etc/${name}.conf",
   $daemonize          = 'yes',
@@ -79,7 +78,9 @@ define redis::setup (
   }
 
   if ($caller_module_name == undef) {
-    $caller_module_name = $module_name
+    $mod_name = $module_name
+  } else {
+    $mod_name = $caller_module_name
   }
 
   if $ensure == 'present' {
@@ -88,23 +89,22 @@ define redis::setup (
       path => ['/sbin', '/bin', '/usr/sbin', '/usr/bin'],
     }
 
-    if $build_packages == true {
-      # Packages required to build Redis
-      package { ['gcc', 'make', 'jemalloc-devel']:
-        ensure => installed,
-      }
+    # Packages required to build Redis
+    package { ['gcc', 'make', 'jemalloc-devel']:
+      ensure => installed,
     }
 
     # Working dir to build Redis
     file { $cachedir:
-      ensure => 'directory',
-      owner  => 'root',
-      group  => 'root',
-      mode   => '644'
+      ensure  => 'directory',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '644',
+      require => Package['gcc', 'make', 'jemalloc-devel']
     }
 
     file { "${cachedir}/${source}":
-      source  => ["puppet:///modules/${caller_module_name}/${source}", "puppet:///modules/${module_name}/${source}"],
+      source  => ["puppet:///modules/${mod_name}/${source}", "puppet:///modules/${module_name}/${source}"],
       require => File[$cachedir],
     }
 
