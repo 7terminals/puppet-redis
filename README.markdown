@@ -5,13 +5,13 @@ redis
 Overview
 --------
 
-The Apache redis module installs the redis build tool.
+The Redis module installs the redis server.
 
 
 Module Description
 -------------------
 
-The Apache redis module allows Puppet to install redis and update the bashrc file to include redis in the path. 
+The Redis module allows Puppet to install Redis and maintain it's configuration. 
 
 Setup
 -----
@@ -19,19 +19,16 @@ Setup
 **What redis affects:**
 
 * installation directory for redis
-* bashrc file of the user or /etc/bashrc if parameter pathfile is not set 
-* ToDo - some more info about keeping apache redis in its own folder so that on ensure => absent, someone' /usr/local does not disappear
+* configuration file for redis and it't init script
 	
-### Beginning with Apache redis
+### Beginning with Redis
 
-To setup Apache redis on a server
+To setup Redis on a server
 
-    redis::setup { "example.com-redis":
-      ensure        => 'present',
-      source        => 'apache-redis-1.9.0-bin.tar.gz',
-      deploymentdir => '/home/example.com/apps/apache-redis',
-      user          => 'example.com',
-      pathfile      => '/home/example.com/.bashrc'
+    redis::setup { 'redis':
+      ensure        => present,
+      deploymentdir => '/usr/local/redis',
+      version       => '2.6.11',
     }
 
 Usage
