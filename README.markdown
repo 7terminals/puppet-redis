@@ -47,7 +47,7 @@ Defaults to present.
 ####`source`
 This parameter specifies the source for the redis archive. 
 This file must be in the files directory in the caller module. 
-Only .tar.gz source archives are supported.
+**Only .tar.gz source archives are supported.**
 
 
 ####`version`
