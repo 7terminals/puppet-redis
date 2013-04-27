@@ -59,6 +59,8 @@ This parameter specifies the directory where ant will be installed.
 
 Defaults to /usr/local/redis.
 
+Note: If deploymentdir is set to /usr/local/, and you want to remove this installation in the future, setting ensure => 'absent' will cause the entire directory, i. e. /usr/local/ to be deleted permanently.
+
 ####`port`
 Accept connections on the specified port.
 Defaults to 6379.
