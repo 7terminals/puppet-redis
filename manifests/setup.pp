@@ -83,6 +83,12 @@ define redis::setup (
     $mod_name = $caller_module_name
   }
 
+  $jemalloc_pkg_name = $osfamily ? {
+    'RedHat' => 'jemalloc-devel',
+    'Debian' => 'libjemalloc-dev',
+    default  => 'jemalloc'
+  }
+
   if $ensure == 'present' {
     # Resource defaults for Exec
     Exec {
@@ -90,7 +96,7 @@ define redis::setup (
     }
 
     # Packages required to build Redis
-    package { ['gcc', 'make', 'jemalloc-devel']:
+    package { ['gcc', 'make', "$jemalloc_pkg_name"]:
       ensure => installed,
     }
 
@@ -100,7 +106,7 @@ define redis::setup (
       owner   => 'root',
       group   => 'root',
       mode    => '644',
-      require => Package['gcc', 'make', 'jemalloc-devel']
+      require => Package['gcc', 'make', "$jemalloc_pkg_name"]
     }
 
     file { "${cachedir}/${source}":
